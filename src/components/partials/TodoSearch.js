@@ -1,8 +1,24 @@
 import { Link, link } from 'react-router-dom'
 import { FiSearch } from "react-icons/fi";
 import AddTaskForm from '../AddTaskForm';
+import { useState } from 'react';
 
-const TodoSearch = () => {
+const TodoSearch = (datas, setData) => {
+
+    const [filterTodo, setFilterTodo] = useState(datas)
+    const [search, setSearch] = useState('')
+
+    const filter = (status) => {
+        if (status === 'all') {
+            setFilterTodo(datas)
+        } else if (status === "done") {
+            const filtered = datas.map((item) => item.complete)
+            setFilterTodo(filtered)
+        } else if (status === "todo") {
+            const filtered = datas.map((item) => !item.complete)
+            setFilterTodo(filtered)
+        }
+    }
     return (
         <>
             <div className='row search_container'>

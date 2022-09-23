@@ -73,6 +73,36 @@ function App() {
     setUpdateTask('')
   }
 
+  //handle delete done task
+  const deleteAllDone = () => {
+    const data = datas.filter((item) => {
+      return item.complete !== true;
+    });
+    Datauser = datas;
+    setData(data);
+  };
+
+  //handle delete all
+  const deleteAll = () => {
+    setData("");
+    datas = [];
+  };
+
+
+  //handle button todo
+  const handleTodo = () => {
+    const todo = datas.filter((item) => item.complete === false)
+    setData(todo)
+  }
+
+
+  //handle done
+  const handleDone = () => {
+    const done = datas.filter((item) => item.complete === true)
+    Datauser = datas
+    setData(done)
+  }
+
   // let items = []
   // items = datas;
   // if (itemShow === 'all') {
@@ -89,9 +119,14 @@ function App() {
       <TodoSearch />
       <TodoList
         datas={datas}
+        setData={setData}
         markDone={markDone}
         setUpdateTask={setUpdateTask}
         deleteTask={deleteTask}
+        deleteAllDone={deleteAllDone}
+        deleteAll={deleteAll}
+        handleTodo={handleTodo}
+        handleDone={handleDone}
       />
 
     </div>
