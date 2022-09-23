@@ -2,7 +2,7 @@ import React from 'react';
 import { BsCheckSquare, BsTrashFill } from "react-icons/bs";
 import { FaEdit } from "react-icons/fa";
 
-const TodoList = ({ datas, markDone, deleteTask, setUpdateTask, deleteAll, deleteAllDone, handleTodo, handleDone, setData }) => {
+const TodoList = ({ datas, markDone, deleteTask, setUpdateTask, deleteAll, deleteAllDone, handleTodo, handleDone, setData, checkbox }) => {
 	return (
 
 		<>
@@ -32,11 +32,11 @@ const TodoList = ({ datas, markDone, deleteTask, setUpdateTask, deleteAll, delet
 										<span className='taskText '> {item.task} </span>
 									</div>
 									<div className='iconsWrap'>
-										<span
-											title='Completed / Not Completed'
-											onClick={(e) => markDone(item.id)}>
-											<BsCheckSquare />
-										</span>
+										<input
+											type='checkbox'
+											value={item.complete}
+											defaultChecked={item.complete}
+											onClick={() => checkbox(item.id)} />
 
 										{item.complete ? '' :
 											<span className='edit'

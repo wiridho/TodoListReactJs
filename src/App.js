@@ -103,6 +103,17 @@ function App() {
     setData(done)
   }
 
+  // handle checked 
+  const checkbox = (e) => {
+    const data = datas.map((item) => {
+      if (e.target.name === item.task) {
+        item.complete = !item.complete;
+      }
+      return item;
+    });
+    setData(data);
+  };
+
   // let items = []
   // items = datas;
   // if (itemShow === 'all') {
@@ -127,6 +138,7 @@ function App() {
         deleteAll={deleteAll}
         handleTodo={handleTodo}
         handleDone={handleDone}
+        checkbox={checkbox}
       />
 
     </div>
