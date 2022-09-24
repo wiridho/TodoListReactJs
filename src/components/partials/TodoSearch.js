@@ -37,7 +37,7 @@ const TodoSearch = (datas, setData) => {
                     </div>
                 </div>
                 <div className='col search_right'>
-                    <Link to='/add' className="btn btn-primary">Add New Task</Link>
+                    <Link to='add' className="btn btn-primary">Add New Task</Link>
                 </div>
             </div>
         </>

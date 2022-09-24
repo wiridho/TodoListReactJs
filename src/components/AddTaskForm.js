@@ -4,21 +4,29 @@ import { useNavigate } from 'react-router-dom'
 import { MdOutlineInput } from "react-icons/md";
 
 
-const AddTaskForm = ({ datas, setData }) => {
+const AddTaskForm = ({ datalist, setDataList }) => {
     const [newTask, setNewTask] = useState('')
     const navigate = useNavigate();
 
     const addTask = () => {
-        if (newTask) {
-            let num = datas.length + 1;
-            let newEntry = {
-                id: num,
+        setDataList([
+            ...datalist,
+            {
+                id: +new Date(),
                 task: newTask,
-                complete: false
+                complete: false,
             }
-            setData([...datas, newEntry])
-            navigate("/")
-        }
+        ])
+        // if (newTask) {
+        //     let num = datas.length + 1;
+        //     let newEntry = {
+        //         id: num,
+        //         task: newTask,
+        //         complete: false
+        //     }
+        // }
+        // setData([...datas, newEntry])
+        navigate("/")
     }
 
     return (

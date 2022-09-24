@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
-import Datauser from './data.json'
 import './App.css'
 import TodoSearch from './components/partials/TodoSearch';
 import TodoList from './components/partials/TodoList';
+import AddTaskForm from './components/AddTaskForm';
 
 
 
-function App() {
+function App({ datalist, setDataList }) {
+  console.log(datalist)
   //navigate
   const navigate = useNavigate()
 
-  const [datas, setData] = useState(Datauser)
+  // const [datalist, setDataList] = useState(datalist)
   const [itemShow, setItemShow] = useState('all')
 
   //TempState
@@ -19,35 +20,21 @@ function App() {
   const [updateTask, setUpdateTask] = useState('')
 
 
-  //Add Task
-  // const addTask = () => {
-  //   if (newTask) {
-  //     let num = datas.length + 1;
-  //     let newEntry = {
-  //       id: num,
-  //       task: newTask,
-  //       complete: false
-  //     }
-  //     setData([...datas, newEntry])
-  //     navigate('/')
-  //   }
-  // }
-
   //Delete Task
   const deleteTask = (id) => {
-    let newTask = datas.filter(task => task.id != id)
-    setData(newTask)
+    let newTask = datalist.filter(task => task.id != id)
+    setDataList(newTask)
   }
 
   //Mark Done
   const markDone = (id) => {
-    let newTask = datas.map(task => {
+    let newTask = datalist.map(task => {
       if (task.id === id) {
         return ({ ...task, complete: !task.status })
       }
       return task
     })
-    setData(newTask)
+    setDataList(newTask)
     setItemShow('done')
   }
 
@@ -65,63 +52,58 @@ function App() {
     setUpdateTask('')
   }
 
-  //edit/update Task
-  const editTask = () => {
-    let filterRecords = [...datas].filter(task => task.id !== updateTask.id);
-    let updateObject = [...filterRecords, updateTask]
-    setData(updateObject)
-    setUpdateTask('')
+  //handle edit
+  const handleEdit = (id) => {
+    navigate(`/update/${id}`)
   }
 
   //handle delete done task
   const deleteAllDone = () => {
-    const data = datas.filter((item) => {
+    const data = datalist.filter((item) => {
       return item.complete !== true;
     });
-    Datauser = datas;
-    setData(data);
+    setDataList(data);
   };
 
   //handle delete all
   const deleteAll = () => {
-    setData("");
-    datas = [];
+    setDataList("");
+    datalist = [];
   };
 
 
   //handle button todo
   const handleTodo = () => {
-    const todo = datas.filter((item) => item.complete === false)
-    setData(todo)
+    const todo = datalist.filter((item) => item.complete === false)
+    setDataList(todo)
   }
 
 
   //handle done
   const handleDone = () => {
-    const done = datas.filter((item) => item.complete === true)
-    Datauser = datas
-    setData(done)
+    const done = datalist.filter((item) => item.complete === true)
+    setDataList(done)
   }
 
   // handle checked 
   const checkbox = (e) => {
-    const data = datas.map((item) => {
+    const data = datalist.map((item) => {
       if (e.target.name === item.task) {
         item.complete = !item.complete;
       }
       return item;
     });
-    setData(data);
+    setDataList(data);
   };
 
   // let items = []
-  // items = datas;
+  // items = datalist;
   // if (itemShow === 'all') {
-  //   items = datas
+  //   items = datalist
   // } else if (itemShow === 'done') {
-  //   items = datas.filter(item => item.complete)
+  //   items = datalist.filter(item => item.complete)
   // } else {
-  //   items = datas.filter(item => !item.complete)
+  //   items = datalist.filter(item => !item.complete)
   // }
 
 
@@ -129,8 +111,7 @@ function App() {
     <div className="container App">
       <TodoSearch />
       <TodoList
-        datas={datas}
-        setData={setData}
+        datas={datalist}
         markDone={markDone}
         setUpdateTask={setUpdateTask}
         deleteTask={deleteTask}
@@ -139,8 +120,8 @@ function App() {
         handleTodo={handleTodo}
         handleDone={handleDone}
         checkbox={checkbox}
+        handleEdit={handleEdit}
       />
-
     </div>
   );
 }

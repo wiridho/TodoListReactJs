@@ -1,8 +1,9 @@
 import React from 'react';
 import { BsCheckSquare, BsTrashFill } from "react-icons/bs";
+import { Link } from 'react-router-dom'
 import { FaEdit } from "react-icons/fa";
 
-const TodoList = ({ datas, markDone, deleteTask, setUpdateTask, deleteAll, deleteAllDone, handleTodo, handleDone, setData, checkbox }) => {
+const TodoList = ({ datas, deleteTask, setUpdateTask, deleteAll, deleteAllDone, handleTodo, handleDone, handleEdit, setData, checkbox }) => {
 	return (
 
 		<>
@@ -39,13 +40,10 @@ const TodoList = ({ datas, markDone, deleteTask, setUpdateTask, deleteAll, delet
 											onClick={() => checkbox(item.id)} />
 
 										{item.complete ? '' :
-											<span className='edit'
+											<span
+												className='edit'
 												title='Edit'
-												onClick={() => setUpdateTask({
-													id: item.id,
-													task: item.task,
-													complete: item.complete ? true : false
-												})}
+												onClick={() => handleEdit(item.id)}
 											>
 												<FaEdit />
 											</span>
