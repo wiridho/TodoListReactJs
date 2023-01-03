@@ -22,7 +22,7 @@
 .search_right {
   display: flex;
   justify-content: end;
-  align-items: flex-end;
+  align-items: end;
 }
 
 /* Todo List */
