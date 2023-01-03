@@ -18,11 +18,13 @@
   padding: 1.2rem 0;
 }
 
-
-.search_right {
+.search_button {
   display: flex;
-  justify-content: end;
-  align-items: end;
+  justify-content: space-between;
+}
+
+.search_button .btn_search {
+  width: 66%;
 }
 
 /* Todo List */
