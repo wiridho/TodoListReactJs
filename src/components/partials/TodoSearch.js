@@ -1,10 +1,7 @@
-import { Link, link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { FiSearch } from "react-icons/fi";
-import AddTaskForm from '../AddTaskForm';
-import { useState } from 'react';
 
-const TodoSearch = ({ datas, onSearch, keyword }) => {
-
+const TodoSearch = ({ onSearch, keyword }) => {
     return (
         <>
             <div className='row search_container'>

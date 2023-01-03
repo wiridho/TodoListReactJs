@@ -13,16 +13,12 @@ function App({ datalist, setDataList }) {
   //navigate
   const navigate = useNavigate()
 
-  // const [datalist, setDataList] = useState(datalist)
   const [itemShow, setItemShow] = useState('all')
-
-  //TempState
-  const [updateTask, setUpdateTask] = useState('')
   const [search, setSearch] = useState('')
 
   //Delete Task
   const deleteTask = (id) => {
-    let newTask = datalist.filter(task => task.id != id)
+    let newTask = datalist.filter(task => task.id !== id)
     setDataList(newTask)
   }
 
@@ -38,19 +34,6 @@ function App({ datalist, setDataList }) {
     setItemShow('done')
   }
 
-  //Change task for update
-  const changeTask = (e) => {
-    let newEntry = {
-      id: updateTask.id,
-      task: e.target.value,
-      complete: updateTask.complete ? true : false
-    }
-    setUpdateTask(newEntry)
-  }
-
-  const cancelEdit = () => {
-    setUpdateTask('')
-  }
 
   //handle edit
   const handleEdit = (id) => {
@@ -129,7 +112,6 @@ function App({ datalist, setDataList }) {
         wordSearch={search}
         datas={items}
         markDone={markDone}
-        setUpdateTask={setUpdateTask}
         deleteTask={deleteTask}
         deleteAllDone={deleteAllDone}
         deleteAll={deleteAll}

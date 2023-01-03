@@ -1,6 +1,5 @@
 import React from 'react';
-import { BsCheckSquare, BsTrashFill } from "react-icons/bs";
-import { Link } from 'react-router-dom'
+import { BsTrashFill } from "react-icons/bs";
 import { FaEdit } from "react-icons/fa";
 
 const TodoList = ({ datas, deleteTask, deleteAll, deleteAllDone, handleEdit, setData, checkbox, handleFilter, wordSearch }) => {
