@@ -38,7 +38,7 @@ const UpdateForm = ({ datalist, setDataList }) => {
                 <div className='addWrapper'>
                     <h5>Todo Update</h5>
                     <div className="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1"><FiEdit3 /></span>
+                        <span className="input-group-text" id="basic-addon1"><FiEdit3 /></span>
                         <input
                             value={task}
                             onChange={(e) => handleChange(e.target.value)}

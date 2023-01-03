@@ -3,11 +3,12 @@ import { useNavigate } from 'react-router-dom'
 import './App.css'
 import TodoSearch from './components/partials/TodoSearch';
 import TodoList from './components/partials/TodoList';
-import AddTaskForm from './components/AddTaskForm';
+
 
 
 
 function App({ datalist, setDataList }) {
+
   console.log(datalist)
   //navigate
   const navigate = useNavigate()
@@ -16,9 +17,8 @@ function App({ datalist, setDataList }) {
   const [itemShow, setItemShow] = useState('all')
 
   //TempState
-
   const [updateTask, setUpdateTask] = useState('')
-
+  const [search, setSearch] = useState('')
 
   //Delete Task
   const deleteTask = (id) => {
@@ -86,32 +86,48 @@ function App({ datalist, setDataList }) {
   }
 
   // handle checked 
-  const checkbox = (e) => {
-    const data = datalist.map((item) => {
-      if (e.target.name === item.task) {
-        item.complete = !item.complete;
-      }
+  const checkbox = (id) => {
+    const filteredItems = datalist.map(item => {
+      item.id === id && (item.complete = !item.complete)
       return item;
-    });
-    setDataList(data);
-  };
+    })
+    setDataList(filteredItems);
+  }
 
-  // let items = []
-  // items = datalist;
-  // if (itemShow === 'all') {
-  //   items = datalist
-  // } else if (itemShow === 'done') {
-  //   items = datalist.filter(item => item.complete)
-  // } else {
-  //   items = datalist.filter(item => !item.complete)
-  // }
 
+  //handle filter
+  const handleFilter = (isFilter) => {
+    setItemShow(isFilter)
+  }
+
+  const onSearch = (e) => {
+    setSearch(e.target.value)
+  }
+
+
+
+  let items = []
+  items = datalist;
+  if (itemShow === 'all') {
+    items = datalist
+  } else if (itemShow === 'done') {
+    items = datalist.filter(item => item.complete)
+  } else if (itemShow === 'todo') {
+    items = datalist.filter(item => !item.complete)
+  }
+
+  console.log(items)
 
   return (
     <div className="container App">
-      <TodoSearch />
+      <TodoSearch
+        datas={items}
+        keyword={search}
+        onSearch={onSearch}
+      />
       <TodoList
-        datas={datalist}
+        wordSearch={search}
+        datas={items}
         markDone={markDone}
         setUpdateTask={setUpdateTask}
         deleteTask={deleteTask}
@@ -119,6 +135,7 @@ function App({ datalist, setDataList }) {
         deleteAll={deleteAll}
         handleTodo={handleTodo}
         handleDone={handleDone}
+        handleFilter={handleFilter}
         checkbox={checkbox}
         handleEdit={handleEdit}
       />

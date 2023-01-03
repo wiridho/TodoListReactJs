@@ -1,5 +1,5 @@
 :root {
-  --color-primary: #009999;
+  --color-primary: #3b82f6;
   --color-white: #fff;
 }
 
@@ -88,7 +88,7 @@ button {
   flex: 1;
 }
 
-.taskBg .done .taskText {
+.taskBg .done {
   text-decoration: line-through;
   opacity: 0.2;
 }

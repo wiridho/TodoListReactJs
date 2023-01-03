@@ -3,36 +3,24 @@ import { FiSearch } from "react-icons/fi";
 import AddTaskForm from '../AddTaskForm';
 import { useState } from 'react';
 
-const TodoSearch = (datas, setData) => {
+const TodoSearch = ({ datas, onSearch, keyword }) => {
 
-    const [filterTodo, setFilterTodo] = useState(datas)
-    const [search, setSearch] = useState('')
-
-    const filter = (status) => {
-        if (status === 'all') {
-            setFilterTodo(datas)
-        } else if (status === "done") {
-            const filtered = datas.map((item) => item.complete)
-            setFilterTodo(filtered)
-        } else if (status === "todo") {
-            const filtered = datas.map((item) => !item.complete)
-            setFilterTodo(filtered)
-        }
-    }
     return (
         <>
             <div className='row search_container'>
                 <h3>Todo Search</h3>
                 <div className='col-8 search_left'>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1"><FiSearch /></span>
+                    <div className="input-group mb-3">
+                        <span className="input-group-text" id="basic-addon1"><FiSearch /></span>
                         <input
-                            value=''
-                            onChange=''
+                            value={keyword}
+                            onChange={onSearch}
                             className='form-control'
-                            type="text" placeholder='Search Todo...' aria-label="Username" aria-describedby="basic-addon1" />
+                            type="text" placeholder='Search Todo...'
+                            aria-label="Username"
+                            aria-describedby="basic-addon1" />
                     </div>
-                    <div class="d-grid gap-2">
+                    <div className="d-grid gap-2">
                         <button className="btn btn-primary" type="button">Search</button>
                     </div>
                 </div>

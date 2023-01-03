@@ -3,20 +3,26 @@ import { BsCheckSquare, BsTrashFill } from "react-icons/bs";
 import { Link } from 'react-router-dom'
 import { FaEdit } from "react-icons/fa";
 
-const TodoList = ({ datas, deleteTask, setUpdateTask, deleteAll, deleteAllDone, handleTodo, handleDone, handleEdit, setData, checkbox }) => {
-	return (
+const TodoList = ({ datas, deleteTask, deleteAll, deleteAllDone, handleEdit, setData, checkbox, handleFilter, wordSearch }) => {
 
+	if (datas.length > 0) {
+		datas = datas.filter(item => {
+			return wordSearch === "" ? item : item.task.toLowerCase().includes(wordSearch.toLowerCase())
+		})
+	}
+
+	return (
 		<>
 			<div className="todo_container mt-3">
-				<h3>Todo List ReactJS</h3>
+				<h5>Todo List</h5>
 				<div className="todo__botton d-flex justify-content-center mt-3 mb-5">
-					<button className='btn btn-primary w-25 me-3' onClick={() => setData(datas)} type="button">
+					<button className='btn btn-primary w-25 me-3' onClick={() => handleFilter('all')} type="button">
 						All
 					</button>
-					<button className='btn btn-primary w-25 ' onClick={handleDone} type="button">
+					<button className='btn btn-primary w-25 ' onClick={() => handleFilter('done')} type="button">
 						Done
 					</button>
-					<button className='btn btn-primary w-25 ms-3' onClick={handleTodo} type="button">
+					<button className='btn btn-primary w-25 ms-3' onClick={() => handleFilter('todo')} type="button">
 						ToDo
 					</button>
 				</div>
@@ -38,16 +44,13 @@ const TodoList = ({ datas, deleteTask, setUpdateTask, deleteAll, deleteAllDone, 
 											value={item.complete}
 											defaultChecked={item.complete}
 											onClick={() => checkbox(item.id)} />
-
-										{item.complete ? '' :
-											<span
-												className='edit'
-												title='Edit'
-												onClick={() => handleEdit(item.id)}
-											>
-												<FaEdit />
-											</span>
-										}
+										<span
+											className='edit'
+											title='Edit'
+											onClick={() => handleEdit(item.id)}
+										>
+											<FaEdit />
+										</span>
 										<span
 											className='delete'
 											title='Delete'
